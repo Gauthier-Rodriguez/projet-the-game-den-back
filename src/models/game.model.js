@@ -4,11 +4,11 @@ const sequelize = require("./sequelize-client");
 class Game extends Model {}
 Game.init({
     name: {
-        type: DataTypes.TEXT,
+        type: DataTypes.CHAR,
         allowNull: false
       },
     image: {
-        type: DataTypes.TEXT,
+        type: DataTypes.CHAR,
         allowNull: false,
     },
    }, {

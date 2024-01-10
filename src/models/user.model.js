@@ -4,7 +4,7 @@ const sequelize = require("./sequelize-client");
 class User extends Model {}
 User.init({
     Pseudo: {
-      type: DataTypes.TEXT,
+      type: DataTypes.CHAR,
       allowNull: false
     },
     LastName: {
@@ -16,11 +16,11 @@ User.init({
       allowNull: false
     },
     Email: {
-      type: DataTypes.TEXT,
+      type: DataTypes.CHAR,
       allowNull: false
     },
     Password: {
-      type: DataTypes.TEXT,
+      type: DataTypes.CHAR,
       allowNull: false
     },
   }, {

@@ -4,7 +4,7 @@ const sequelize = require("./sequelize-client");
 class Platform extends Model {}
 Platform.init({
     name: {
-        type: DataTypes.TEXT,
+        type: DataTypes.CHAR,
         allowNull: false
       },
     },{

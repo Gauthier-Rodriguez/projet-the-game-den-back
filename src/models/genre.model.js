@@ -12,4 +12,4 @@ Genre.init({
         tablename: "Genre"
     });
 
-module.exports = Game;
+module.exports = Genre;

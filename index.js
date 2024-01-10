@@ -1,17 +1,19 @@
+require('dotenv/config');
 const express = require('express');
-const app = express();
 const cors = require('cors');
 
 const router = require('./src/routers');
 
+const app = express();
+
+app.use(express.json()); 
+app.use(express.urlencoded({ extended: true }));
+
+app.use('/api', router);
 app.use(cors());
+app.use(express.static("./dist"));
 
-app.get('/', (req, res) => {
-  res.send('Welcome to my auth API')
-});
 
-app.use('/auth', authRouter);
-app.use('/api', userRouter);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
