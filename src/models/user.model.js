@@ -11,7 +11,7 @@ User.init({
       type: DataTypes.TEXT,
       allowNull: false
     },
-    FistName: {
+    FirstName: {
       type: DataTypes.TEXT,
       allowNull: false
     },
