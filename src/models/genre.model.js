@@ -3,13 +3,13 @@ const sequelize = require("./sequelize-client");
 
 class Genre extends Model {}
 Genre.init({
-    name: {
-        type: DataTypes.TEXT,
+    Name: {
+        type: DataTypes.CHAR,
         allowNull: false
       },
-    },{
+    }, {
         sequelize,
-        tablename: "Genre"
+        tableName: "Genre"
     });
 
 module.exports = Genre;

@@ -3,17 +3,17 @@ const sequelize = require("./sequelize-client");
 
 class Game extends Model {}
 Game.init({
-    name: {
+    Name: {
         type: DataTypes.CHAR,
         allowNull: false
       },
-    image: {
+    Image: {
         type: DataTypes.CHAR,
         allowNull: false,
     },
    }, {
         sequelize,
-        tablename: "Game"
+        tableName: "Game"
 });
 
 module.exports = Game;

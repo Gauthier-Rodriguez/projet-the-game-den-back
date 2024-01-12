@@ -3,13 +3,13 @@ const sequelize = require("./sequelize-client");
 
 class Platform extends Model {}
 Platform.init({
-    name: {
-        type: DataTypes.CHAR,
-        allowNull: false
-      },
-    },{
+    Name: {
+      type: DataTypes.CHAR,
+      allowNull: false
+    },
+  }, {
         sequelize,
-        tablename: "Platform"
+        tableName: "Platform"
     });
-
-module.exports = Platform;
+    
+    module.exports = Platform;

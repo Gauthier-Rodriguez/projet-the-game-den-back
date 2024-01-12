@@ -74,7 +74,9 @@ const getAllInfos = async (req, res) => {
   if (isNaN(userId)){
     return res.status(400).json({error : "Invalid userId provided"})
   }
-  const infos = await User.findByPk(userId);
+  const infos = await User.findByPk(userId, {
+    include: ["platforms", "genres"]
+  });
   
   if(!infos) {
     return res
@@ -130,7 +132,7 @@ const updateInfos = async (req, res) => {
     
     const updatedUser = await user.update({
       Pseudo: req.body.Pseudo || user.Pseudo,
-      LastName: req.body.LastName|| user.LastName,
+      LastName: req.body.LastName || user.LastName,
       FirstName: req.body.FirstName || user.FirstName,
       Email: req.body.Email || user.Email,
       Password: req.body.Password || user.Password
@@ -138,6 +140,7 @@ const updateInfos = async (req, res) => {
     
     res.status(200).json(updatedUser);
 };
+
 
 module.exports = {
   isAuthenticated,
