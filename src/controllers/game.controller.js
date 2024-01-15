@@ -17,13 +17,24 @@ const getAllGames = async (req, res) => {
 
 const addGameToUser = async (req, res) => {
   const userId = req.params.id;  
-  const gameId = req.body 
+  const {gameId, gameName, gameImage} = req.body
+  console.log(req.body.gameId)
+
+  const newGame = new Game({
+    GameID : req.body.gameId,
+    Name : req.body.gameName,
+    Image : req.body.gameImage
+  })
+   const gameExist = await Game.findOne({where: {GameID : req.body.gameId}});
+  if(!gameExist){
+    newGame.save();
+  } 
 
   if (isNaN(parseInt(userId))) {
     return res.status(400).json({ error: "userId should be a valid ID." });
   } 
 
-  if (isNaN(parseInt(gameId.gameId))) {
+  if (isNaN(parseInt(req.body.gameId))) {
     return res.status(400).json({ error: "gameId should be a valid ID." });
   } 
 
@@ -32,17 +43,17 @@ const addGameToUser = async (req, res) => {
     return res.status(404).json({ error: "User not found. Please verify the provided id." });
   } 
 
-  const game = await Game.findByPk(gameId.gameId);
+  const game = await Game.findByPk(req.body.gameId);
   if (!game) {
     return res.status(404).json({ error: "Game not found. Please verify the provided id." });
   } 
-
+ 
   await user.addGame(game);
 
   const updatedUser = await User.findByPk(userId, { include: ["games"] });
   const games = updatedUser.games
   res.status(201).json(games);
-}
+};
 
 
 const deleteGame = async (req, res) => {
