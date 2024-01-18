@@ -26,10 +26,8 @@ const addPlatformToUser = async (req, res) => {
   await user.addPlatform(platform);
 
   const updatedUser = await User.findByPk(userId, { include: ["platforms"] });
-  res.status(201).json(updatedUser);
+  res.status(201).json(updatedUser.platforms);
   
-  const platforms = updatedUser.platforms || []
-  res.status(200).json(platforms)
 };
 
 const getAllPlatforms = async (req, res) => {
@@ -63,9 +61,8 @@ const deletePlatformToUser = async (req,res) => {
 
   await user.removePlatform(platform);
 
-  const platforms = user.platforms || [];
-  res.status(200).json(platforms);
-
+  const updatedUser = await User.findByPk(userId, { include: ["genres"] });
+  res.status(201).json(updatedUser.platforms);
 };
 
 module.exports = {

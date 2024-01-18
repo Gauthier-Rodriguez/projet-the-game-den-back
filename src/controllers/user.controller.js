@@ -123,6 +123,12 @@ const updateInfos = async (req, res) => {
     if(emailExist) return res.status(400).send('Email already taken');
   }
 
+  if (!validator.isStrongPassword(req.body.Password)) {
+    return res.status(400).json({ error: 'Weak password. Please choose a stronger password'});
+  };
+    const salt = await bcrypt.genSalt(10);
+    const hashPassword = await bcrypt.hash(req.body.Password, salt);
+
 
     const user = await User.findByPk(userId);
     
@@ -135,7 +141,7 @@ const updateInfos = async (req, res) => {
       LastName: req.body.LastName || user.LastName,
       FirstName: req.body.FirstName || user.FirstName,
       Email: req.body.Email || user.Email,
-      Password: req.body.Password || user.Password
+      Password: hashPassword|| user.Password
     });
     
     res.status(200).json(updatedUser);
