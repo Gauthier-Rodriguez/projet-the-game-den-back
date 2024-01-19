@@ -17,7 +17,6 @@ const getAllGames = async (req, res) => {
 
 const addGameToUser = async (req, res) => {
   const userId = req.params.id;  
-  const {gameId, gameName, gameImage} = req.body
   console.log(req.body.gameId)
 
   const newGame = new Game({
@@ -34,16 +33,12 @@ const addGameToUser = async (req, res) => {
     return res.status(400).json({ error: "userId should be a valid ID." });
   } 
 
-  if (isNaN(parseInt(req.body.gameId))) {
-    return res.status(400).json({ error: "gameId should be a valid ID." });
-  } 
-
   const user = await User.findByPk(userId);
   if (!user) {
     return res.status(404).json({ error: "User not found. Please verify the provided id." });
   } 
 
-  const game = await Game.findByPk(req.body.gameId);
+  const game = await Game.findOne({where: {GameID : req.body.gameId}});
   if (!game) {
     return res.status(404).json({ error: "Game not found. Please verify the provided id." });
   } 
@@ -58,14 +53,10 @@ const addGameToUser = async (req, res) => {
 
 const deleteGame = async (req, res) => {
     const userId = req.params.id;
-    const gameId = req.body;
+    const gameId = req.body.gameId;
 
     if (isNaN(parseInt(userId))) {
         return res.status(400).json({ error: "userId should be a valid ID." });
-      }
-    
-      if (isNaN(parseInt(gameId.gameId))) {
-        return res.status(400).json({ error: "gameId should be a valid ID." });
       }
     
       const user = await User.findByPk(userId);
@@ -73,7 +64,7 @@ const deleteGame = async (req, res) => {
         return res.json({ error: "User not found. Please verify the provided id." });
       }
     
-      const game = await Game.findByPk(gameId.gameId);
+      const game = await Game.findOne({where: {GameID : gameId}});
       if (!game) {
         return res.json({ error: "Game not found. Please verify the provided id." });
       }
