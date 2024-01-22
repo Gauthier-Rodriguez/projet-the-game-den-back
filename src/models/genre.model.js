@@ -7,6 +7,10 @@ Genre.init({
         type: DataTypes.CHAR,
         allowNull: false
       },
+        GenreID: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        }
     }, {
         sequelize,
         tableName: "Genre"

@@ -7,6 +7,10 @@ Platform.init({
       type: DataTypes.CHAR,
       allowNull: false
     },
+    PlatformID: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    }
   }, {
         sequelize,
         tableName: "Platform"
