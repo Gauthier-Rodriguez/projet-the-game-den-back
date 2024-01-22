@@ -96,7 +96,6 @@ const updateInfos = async (req, res) => {
     }
 
     const { firstname, lastname, pseudo, email, password } = req.body; 
-    
     if (firstname && typeof firstname !== 'string') {
       return res.status(400).json({ error: "Invalid type for property 'firstname'" });
     }
@@ -104,7 +103,6 @@ const updateInfos = async (req, res) => {
     if (lastname && typeof lastname !== 'string') {
       return res.status(400).json({ error: "Invalid type for property 'lastname'" });
     }
-
     
     if (pseudo && typeof pseudo !== 'string') {
       return res.status(400).json({ error: "Invalid type for property 'pseudo'" });
@@ -122,27 +120,33 @@ const updateInfos = async (req, res) => {
     const emailExist = await User.findOne({where: {Email : req.body.Email}});
     if(emailExist) return res.status(400).send('Email already taken');
   }
+  let hashPassword;  // Declare hashPassword at a higher scope
 
-  if (!validator.isStrongPassword(req.body.Password)) {
-    return res.status(400).json({ error: 'Weak password. Please choose a stronger password'});
-  };
-    const salt = await bcrypt.genSalt(10);
-    const hashPassword = await bcrypt.hash(req.body.Password, salt);
-
-
-    const user = await User.findByPk(userId);
-    
-    if (!user) {
-      return res.status(404).json({ error : "User not found"})
-    };
-    
-    const updatedUser = await user.update({
+  if (req.body.Password) {
+      if (!validator.isStrongPassword(req.body.Password)) {
+          return res.status(400).json({ error: 'Weak password. Please choose a stronger password'});
+      }
+  
+      const salt = await bcrypt.genSalt(10);
+      hashPassword = await bcrypt.hash(req.body.Password, salt);  // Assign value to hashPassword here
+      console.log(hashPassword);
+  }
+  
+  const user = await User.findByPk(userId);
+  
+  if (!user) {
+      return res.status(404).json({ error : "User not found" });
+  }
+  
+  console.log(hashPassword);  // Now hashPassword is accessible here
+  
+  const updatedUser = await user.update({
       Pseudo: req.body.Pseudo || user.Pseudo,
       LastName: req.body.LastName || user.LastName,
       FirstName: req.body.FirstName || user.FirstName,
       Email: req.body.Email || user.Email,
-      Password: hashPassword|| user.Password
-    });
+      Password: hashPassword || user.Password  // hashPassword is used here
+  });
     
     res.status(200).json(updatedUser);
 };
