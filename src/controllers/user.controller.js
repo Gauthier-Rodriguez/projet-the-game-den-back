@@ -75,7 +75,8 @@ const getAllInfos = async (req, res) => {
     return res.status(400).json({error : "Invalid userId provided"})
   }
   const infos = await User.findByPk(userId, {
-    include: ["platforms", "genres"]
+    include: ["platforms", "genres"],
+    expiresIn: '3h'
   });
   
   if(!infos) {
