@@ -21,11 +21,11 @@ const createUser = async (req, res) => {
   
   const pseudoExist = await User.findOne({where: {Pseudo : req.body.pseudo}});
   
-  if(pseudoExist) return res.status(400).send('Pseudo already taken');
+  if(pseudoExist) return res.status(400).json({error : 'Pseudo already taken'});
   
   const emailExist = await User.findOne({where: {Email : req.body.email}});
   
-  if(emailExist) return res.status(400).send('Email already taken');
+  if(emailExist) return res.status(400).json({error : 'Email already taken'});
   
   if (!validator.isEmail(email)) {
       return res.status(400).json({ error: 'Invalid email address'});
@@ -58,10 +58,10 @@ const createUser = async (req, res) => {
 const loginUser = async (req, res) => {
 
   const user = await User.findOne({where :{Email : req.body.email}});
-  if(!user) return res.status(400).send('Email not found, please sign up');
+  if(!user) return res.status(400).json({error : 'Email not found, please sign up'});
  
   const validPass = await bcrypt.compare(req.body.password, user.Password);
-  if(!validPass) return res.status(400).send('Password or Email not valid');
+  if(!validPass) return res.status(400).json({error : 'Password or Email not valid'});
 
   const token = jwt.sign({pseudo : user.Pseudo, id : user.id}, process.env.SECRET);
   res.header('auth-token', token);
