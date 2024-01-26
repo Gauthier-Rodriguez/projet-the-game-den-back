@@ -52,7 +52,6 @@ CREATE TABLE "UserHasGenre" (
     "GenreID" INT REFERENCES "Genre"("id"),
     "Created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "Updated_at" TIMESTAMPTZ
-
 );
 
 CREATE TABLE "UserHasPlatform" (

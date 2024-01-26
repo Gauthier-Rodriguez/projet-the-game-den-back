@@ -39,10 +39,10 @@ const createUser = async (req, res) => {
   const hashPassword = await bcrypt.hash(req.body.password, salt);
   
   if(typeof firstname !== "string")
-    {res.status(400).json({ error : 'Your first name is not valid'})};
+    {return res.status(400).json({ error : 'Your first name is not valid'})};
   
   if(typeof lastname !== "string")
-    {res.status(400).json({ error : 'Your last name is not valid'})};
+    {return res.status(400).json({ error : 'Your last name is not valid'})};
   
   const user = new User({
     FirstName : req.body.firstname,
@@ -53,6 +53,8 @@ const createUser = async (req, res) => {
   });
 
   user.save();
+
+  res.status(201).json({message : 'User created'});
 };
 
 const loginUser = async (req, res) => {

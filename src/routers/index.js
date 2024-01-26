@@ -10,7 +10,7 @@ const router = Router();
 router.use(userRouter);
 router.use(favGameRouter);
 router.use(filterRouter);
-//router.use(apirouter);
+router.use(apirouter);
 
 
 router.use((req, res) => {
