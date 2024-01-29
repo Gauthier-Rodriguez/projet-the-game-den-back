@@ -77,12 +77,13 @@ const getAllPopularGames = async (req, res) => {
 
 const getGameDetails = async (req, res) => {
   const GameID = req.params.id;
-  const queryBody = `fields name, platforms.name, platforms.platform_logo.url, cover.url, summary, genres.name, involved_companies.company.name, involved_companies.company.websites.url, first_release_date;
+  const queryBody = `fields name, platforms.name, platforms.platform_logo.url, cover.url, cover.image_id, summary, genres.name, involved_companies.company.name, involved_companies.company.websites.url, first_release_date;
   where id=${GameID};`;
 
   const results = await axios.post('https://api.igdb.com/v4/games', queryBody,{
     headers: {'Client-ID': CLIENT_ID, 'Authorization': 'Bearer ' + API_TOKEN}
   });
+  console.log(results.data);
     const gameDetails = results.data.map((game) => ({
       id : game.id,
       name: game.name,
