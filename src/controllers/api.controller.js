@@ -30,7 +30,9 @@ const getAllApiGenres = async (req, res) => {
 
 const searchResults = async (req, res) => {
   const queryBody = `fields id, name, platforms.name, platforms.platform_logo.image_id, cover.image_id;
-  where name ~ *"${req.query.search}"* & rating >50 & rating_count >40;
+  search "${req.query.search}";
+  where rating >50 & rating_count >40;
+  sort realease_dates.date desc;
   limit 40;`;
 
   const results = await axios.post('https://api.igdb.com/v4/games', queryBody,{
@@ -55,7 +57,8 @@ const searchResults = async (req, res) => {
 const getAllPopularGames = async (req, res) => {
   const queryBody = `fields name, platforms.name, platforms.platform_logo.url, cover.url, cover.image_id, genres.name;
   where release_dates.date > 1672527600 & rating >80 & rating_count >50;
-  sort rating desc;
+  sort rating desc & realease_dates.date desc;
+  desc;
   limit 40;`;
  
     const results = await axios.post('https://api.igdb.com/v4/games', queryBody,{
@@ -113,7 +116,7 @@ const getGamesReco = async (req, res) => {
   const {genres, platforms} = req.query;
   const queryBody = `fields name, platforms.name, platforms.platform_logo.url, cover.url, cover.image_id, genres.name;
   where genres=(${genres}) & platforms=(${platforms});
-  sort date asc;
+  sort realease_dates.date desc;
   limit 40;`;
 
   const results = await axios.post('https://api.igdb.com/v4/games', queryBody,{
