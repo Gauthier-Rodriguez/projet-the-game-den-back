@@ -1,6 +1,7 @@
 const axios = require('axios');
 const { API_TOKEN, CLIENT_ID } = process.env;
 const getLogo = require('../utils/getLogo');
+const convertDate = require('../utils/convertDate');
 
 const getAllApiPlatforms = async (req, res) => {
   const queryBody = `fields name; 
@@ -109,7 +110,7 @@ const getGameDetails = async (req, res) => {
         name : company.company.name,
         website : company.company.websites?.url,
       })),
-      first_release_date: game.first_release_date,
+      first_release_date: convertDate(game.first_release_date),
     }))
       res.status(200).json(gameDetails);
 };
