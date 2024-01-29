@@ -1,7 +1,7 @@
 const axios = require('axios');
 const { API_TOKEN, CLIENT_ID } = process.env;
 const getLogo = require('../utils/getLogo');
-const convertDate = require('../utils/convertDate');
+const convertDate = require('../utils/getLogo');
 
 const getAllApiPlatforms = async (req, res) => {
   const queryBody = `fields name; 
