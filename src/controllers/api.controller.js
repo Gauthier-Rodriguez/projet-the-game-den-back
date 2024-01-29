@@ -65,7 +65,7 @@ const getAllPopularGames = async (req, res) => {
     const games = results.data.map((game) => ({
       id : game.id,
       name: game.name,
-      cover : `https://images.igdb.com/igdb/image/upload/t_720p/${game.cover?.image_id}.jpg`,
+      cover : `https://images.igdb.com/igdb/image/upload/t_720p/${game.cover}.jpg`,
       platforms: game.platforms.map((platform) => ({
         id : platform.id,
         name : platform.name,
@@ -86,7 +86,7 @@ const getGameDetails = async (req, res) => {
     const gameDetails = results.data.map((game) => ({
       id : game.id,
       name: game.name,
-      cover : `https://images.igdb.com/igdb/image/upload/t_720p/${game.cover?.image_id}.jpg`,
+      cover : `https://images.igdb.com/igdb/image/upload/t_720p/${game.cover&&game.image_id}.jpg`,
       platforms: game.platforms.map((platform) => ({
         id : platform.id,
         name : platform.name,
@@ -122,7 +122,7 @@ const getGamesReco = async (req, res) => {
   const games = results.data.map((game) => ({
     id : game.id,
     name: game.name,
-    cover : `https://images.igdb.com/igdb/image/upload/t_720p/${game.cover?.image_id}.jpg`,
+    cover : `https://images.igdb.com/igdb/image/upload/t_720p/${game.cover&&game.image_id}.jpg`,
     platforms: game.platforms.map((platform) => ({
       id : platform.id,
       name : platform.name,
