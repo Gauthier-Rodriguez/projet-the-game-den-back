@@ -29,22 +29,22 @@ const getAllApiGenres = async (req, res) => {
 };
 
 const searchResults = async (req, res) => {
-  const queryBody = `fields name, platforms.name, platforms.platform_logo.url, cover.url, cover.image_id, genres.name, game.fisrt_release_date;
+  const queryBody = `fields name, game.platforms.name, game.platforms.platform_logo.url, game.cover.url, game.cover.image_id, game.genres.name, game.first_release_date;
   search "${req.query.search}";
-  where rating >50 & rating_count >40;
+  where game.rating >50 & game.rating_count >40;
   limit 40;`;
 
-  const results = await axios.post('https://api.igdb.com/v4/games', queryBody,{
+  const results = await axios.post('https://api.igdb.com/v4/search', queryBody,{
   headers: {'Client-ID': CLIENT_ID, 'Authorization': 'Bearer ' + API_TOKEN}
   });
 
 
-
+console.log(results.data);
     const games = results.data.map((game) => ({
-      id : game.id,
+      id : game.game.id,
       name: game.name,
-      cover : game.cover ? `https://images.igdb.com/igdb/image/upload/t_720p/${game.cover&&game.cover.image_id}.jpg` : null,
-      platforms: game.platforms.map((platform) => ({
+      cover : `https://images.igdb.com/igdb/image/upload/t_720p/${game.game.cover&&game.game.cover.image_id}.jpg`,
+      platforms: game.game.platforms.map((platform) => ({
         id : platform.id,
         name : platform.name,
         logo : getLogo(platform)
