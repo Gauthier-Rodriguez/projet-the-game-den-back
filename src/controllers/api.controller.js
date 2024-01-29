@@ -29,7 +29,7 @@ const getAllApiGenres = async (req, res) => {
 };
 
 const searchResults = async (req, res) => {
-  const queryBody = `fields name, platforms.name, platforms.platform_logo.url, cover.url, cover.image_id, genres.name;
+  const queryBody = `fields name, platforms.name, platforms.platform_logo.url, cover.url, cover.image_id, genres.name, game.fisrt_release_date;
   search "${req.query.search}";
   where rating >50 & rating_count >40;
   limit 40;`;
