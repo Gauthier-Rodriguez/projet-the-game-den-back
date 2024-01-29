@@ -115,7 +115,7 @@ const getGamesReco = async (req, res) => {
   const {genres, platforms} = req.query;
   const queryBody = `fields name, platforms.name, platforms.platform_logo.url, cover.url, cover.image_id, genres.name;
   where genres=(${genres}) & platforms=(${platforms}) & rating >50 & rating_count >5;
-  sort first_realease_date desc;
+  sort first_release_date desc;
   limit 40;`;
 
   const results = await axios.post('https://api.igdb.com/v4/games', queryBody,{
