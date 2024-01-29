@@ -73,6 +73,10 @@ const getAllPopularGames = async (req, res) => {
       id : game.id,
       name: game.name,
       cover : `https://images.igdb.com/igdb/image/upload/t_720p/${game.cover&&game.cover.image_id}.jpg`,
+      genres :  game.genres.map((genre) => ({
+        id : genre.id,
+        name : genre.name,
+      })), 
       platforms: game.platforms.map((platform) => ({
         id : platform.id,
         name : platform.name,
