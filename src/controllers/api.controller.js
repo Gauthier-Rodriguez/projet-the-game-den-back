@@ -42,7 +42,7 @@ const searchResults = async (req, res) => {
     const games = results.data.map((game) => ({
       id : game.id,
       name: game.name,
-      cover : game.cover ? `https://images.igdb.com/igdb/image/upload/t_720p/${game.cover.image_id}.jpg` : null,
+      cover : game.cover ? `https://images.igdb.com/igdb/image/upload/t_720p/${game.cover&&game.cover.image_id}.jpg` : null,
       platforms: game.platforms.map((platform) => ({
         id : platform.id,
         name : platform.name,
@@ -65,7 +65,7 @@ const getAllPopularGames = async (req, res) => {
     const games = results.data.map((game) => ({
       id : game.id,
       name: game.name,
-      cover : `https://images.igdb.com/igdb/image/upload/t_720p/${game.cover.image_id}.jpg`,
+      cover : `https://images.igdb.com/igdb/image/upload/t_720p/${game.cover&&game.cover.image_id}.jpg`,
       platforms: game.platforms.map((platform) => ({
         id : platform.id,
         name : platform.name,
@@ -87,7 +87,7 @@ const getGameDetails = async (req, res) => {
     const gameDetails = results.data.map((game) => ({
       id : game.id,
       name: game.name,
-      cover : `https://images.igdb.com/igdb/image/upload/t_720p/${game.cover.image_id}.jpg`,
+      cover : `https://images.igdb.com/igdb/image/upload/t_720p/${game.cover&&game.cover.image_id}.jpg`,
       platforms: game.platforms.map((platform) => ({
         id : platform.id,
         name : platform.name,
@@ -111,7 +111,7 @@ const getGameDetails = async (req, res) => {
 const getGamesReco = async (req, res) => {
   console.log(req.query);
   const {genres, platforms} = req.query;
-  const queryBody = `fields id, name, platforms.name, platforms.platform_logo.image_id, cover.image_id;
+  const queryBody = `fields name, platforms.name, platforms.platform_logo.url, cover.url, cover.image_id, genres.name;
   where genres=(${genres}) & platforms=(${platforms});
   sort date asc;
   limit 40;`;
@@ -119,11 +119,11 @@ const getGamesReco = async (req, res) => {
   const results = await axios.post('https://api.igdb.com/v4/games', queryBody,{
   headers: {'Client-ID': CLIENT_ID, 'Authorization': 'Bearer ' + API_TOKEN}
   });
-
+console.log(results.data);
   const games = results.data.map((game) => ({
     id : game.id,
     name: game.name,
-    cover : `https://images.igdb.com/igdb/image/upload/t_720p/${game.cover.image_id}.jpg`,
+    cover : `https://images.igdb.com/igdb/image/upload/t_720p/${game.cover&&game.cover.image_id}.jpg`,
     platforms: game.platforms.map((platform) => ({
       id : platform.id,
       name : platform.name,
