@@ -53,7 +53,7 @@ const searchResults = async (req, res) => {
 };
 
 const getAllPopularGames = async (req, res) => {
-  const queryBody = `fields name, platforms.name, platforms.platform_logo.url, cover.url, genres.name;
+  const queryBody = `fields name, platforms.name, platforms.platform_logo.url, cover.url, cover.image_id, genres.name;
   where release_dates.date > 1672527600 & rating >80 & rating_count >50;
   sort rating desc;
   limit 40;`;
