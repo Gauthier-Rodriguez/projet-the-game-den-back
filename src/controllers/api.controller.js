@@ -44,6 +44,7 @@ console.log(results.data);
       id : game.game.id,
       name: game.name,
       cover : `https://images.igdb.com/igdb/image/upload/t_720p/${game.game.cover&&game.game.cover.image_id}.jpg`,
+      first_release_date: game.game.first_release_date,
       platforms: game.game.platforms.map((platform) => ({
         id : platform.id,
         name : platform.name,
