@@ -32,7 +32,6 @@ const searchResults = async (req, res) => {
   const queryBody = `fields name, platforms.name, platforms.platform_logo.url, cover.url, cover.image_id, genres.name;
   search "${req.query.search}";
   where rating >50 & rating_count >40;
-  sort first_realease_date desc;
   limit 40;`;
 
   const results = await axios.post('https://api.igdb.com/v4/games', queryBody,{
