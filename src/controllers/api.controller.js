@@ -1,7 +1,7 @@
 const axios = require('axios');
 const { API_TOKEN, CLIENT_ID } = process.env;
 const getLogo = require('../utils/getLogo');
-const convertDate = require('../utils/getLogo');
+const convertDate = require('../utils/convertDate');
 
 const getAllApiPlatforms = async (req, res) => {
   const queryBody = `fields name; 
@@ -90,10 +90,11 @@ const getGameDetails = async (req, res) => {
   const results = await axios.post('https://api.igdb.com/v4/games', queryBody,{
     headers: {'Client-ID': CLIENT_ID, 'Authorization': 'Bearer ' + API_TOKEN}
   });
-  console.log(results.data);
+  
     const gameDetails = results.data.map((game) => ({
       id : game.id,
       name: game.name,
+      first_release_date: convertDate(game.first_release_date),
       cover : `https://images.igdb.com/igdb/image/upload/t_720p/${game.cover&&game.cover.image_id}.jpg`,
       platforms: game.platforms.map((platform) => ({
         id : platform.id,
@@ -110,9 +111,11 @@ const getGameDetails = async (req, res) => {
         name : company.company.name,
         website : company.company.websites?.url,
       })),
-      first_release_date: convertDate(game.first_release_date),
+      
     }))
+    console.log(gameDetails);
       res.status(200).json(gameDetails);
+    
 };
 
 const getGamesReco = async (req, res) => {
