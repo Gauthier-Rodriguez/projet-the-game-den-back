@@ -44,7 +44,7 @@ console.log(results.data);
     const games = results.data.map((game) => ({
       id : game.game.id,
       name: game.name,
-      cover : `https://images.igdb.com/igdb/image/upload/t_720p/${game.game.cover&&game.game.cover.image_id}.jpg`,
+      cover : `https://images.igdb.com/igdb/image/upload/t_1080p/${game.game.cover&&game.game.cover.image_id}.jpg`,
       first_release_date: game.game.first_release_date,
       genres: game.game.genres.map((genre) => ({
         id : genre.id,
@@ -72,7 +72,7 @@ const getAllPopularGames = async (req, res) => {
     const games = results.data.map((game) => ({
       id : game.id,
       name: game.name,
-      cover : `https://images.igdb.com/igdb/image/upload/t_720p/${game.cover&&game.cover.image_id}.jpg`,
+      cover : `https://images.igdb.com/igdb/image/upload/t_1080p/${game.cover&&game.cover.image_id}.jpg`,
       genres :  game.genres.map((genre) => ({
         id : genre.id,
         name : genre.name,
@@ -99,7 +99,7 @@ const getGameDetails = async (req, res) => {
       id : game.id,
       name: game.name,
       first_release_date: convertDate(game.first_release_date),
-      cover : `https://images.igdb.com/igdb/image/upload/t_720p/${game.cover&&game.cover.image_id}.jpg`,
+      cover : `https://images.igdb.com/igdb/image/upload/t_1080p/${game.cover&&game.cover.image_id}.jpg`,
       platforms: game.platforms.map((platform) => ({
         id : platform.id,
         name : platform.name,
@@ -137,7 +137,7 @@ console.log(results.data);
   const games = results.data.map((game) => ({
     id : game.id,
     name: game.name,
-    cover : `https://images.igdb.com/igdb/image/upload/t_720p/${game.cover&&game.cover.image_id}.jpg`,
+    cover : `https://images.igdb.com/igdb/image/upload/t_1080p/${game.cover&&game.cover.image_id}.jpg`,
     platforms: game.platforms.map((platform) => ({
       id : platform.id,
       name : platform.name,
