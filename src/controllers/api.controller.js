@@ -61,7 +61,7 @@ console.log(results.data);
 
 const getAllPopularGames = async (req, res) => {
   const queryBody = `fields name, platforms.name, platforms.platform_logo.url, cover.url, cover.image_id, genres.name;
-  where release_dates.date > 1672527600 & rating >80 & rating_count >50;
+  where first_release_date > 1672527600 & rating >80 & rating_count >50;
   sort rating desc;
   limit 40;`;
  
